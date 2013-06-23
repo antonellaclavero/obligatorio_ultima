@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif' rel='stylesheet' type='text/css'>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Juego - Ceibal</title>
+        <link href="css/estilos.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="movimientoPeones.js"></script>
+        <script type="text/javascript" src="funciones.js"></script>
+        <script type="text/javascript" >
+            var preguntas = "1@¿Cómo se declara una función sin parámetros?@2\n"
+                    + "2@¿Cuál de las siguientes invocaciones es correcta?@4\n"
+                    + "3@Dada la función con la firma: miFuncion(a,b) ¿Cuál invocación es correcta?@3\n"
+                    + "4@¿Cuál de las siguientes afirmaciones es verdadera?@1\n"
+                    + "5@¿Cómo se introducen comentarios en la sintaxis Javascript?@4\n"
+                    + "6@Cómo se escribe un condicional para que sea verdadero sólo si i es distinta de 5?@2\n"
+                    + "7@Un vector se define usando:@3\n"
+                    + "8@¿Con cuál de estas sentencias es posible agregar un elemento al final de un vector?@1\n"
+                    + "9@¿Con cuál de estas sentencias se genera un número aleatorio?@3\n"
+                    + "10@¿Cómo se redondea el número 7.25 al entero más cercano?@4\n"
+                    + "11@ ¿cómo se muestra una ventana con el mensaje   Hola mundo!  ? @2\n"
+                    + "12@ ¿Cómo se escribe un bucle   for   para contar desde 1 hasta 5? @1\n"
+                    + "13@¿Qué función se usa para convertir una cadena a minúsculas?@3\n"
+                    + "14@ ¿Cómo se referencia desde el HTML  un archivo externo con código JavaScript llamado   xxx.js?@3\n"
+                    + "15@El DOM representa una página web como@1\n"
+                    + "16@ ¿Cómo se comprueba si la variable i es igual a 5?@4\n"
+                    + "17@Cuando una página utiliza funciones escritas en Javascript, estas funciones se ejecutan@1\n"
+                    + "18@Cuando queremos que el cuerpo de un bucle se ejecute como mínimo una vez utilizamos la sentencia:@2\n"
+                    + "19@Para recorrer el array miVector hasta encontrar el valor v la condición debe ser@3\n"
+                    + "20@Para acceder al carácter en la posición x de un string  llamado strPrueba usar@4";
+
+            var respuestas = "1@1@ function:myFunction()@1@2@ function myFunction()@1@3@ declare myFunction()@1@4@ new myFunction\n\
+                       2@1@Resultado=myFunction@2@2@Call myFunction()@2@3@myFunction@2@4@Resultado=myFunction()\n\
+                       3@1@MiFuncion a,b@3@2@a=MiFuncion(b)@3@3@miFuncion(x,y)@3@4@Ninguna de las anteriores\n\
+                       4@1@Una variable local se debe declarar con var dentro de una función@4@2@Una variable local se declara con o sin var dentro de una función@4@3@No es necesario declarar una variable para que sea local@4@4@Ninguna de las anteriores\n\
+                       5@1@&lt;!-- Esto es comentario --&gt;@5@2@&lt;? Esto es un comentario ?&gt;@5@3@\/* Esto es un comentario@5@4@Ninguna de las anteriores\n\
+                       6@1@ if (i \<\> 5)@6@2@ if (i != 5)@6@3@ if =! 5 then@6@4@ if \<\> 5\n\
+                       7@1@\"var myarray = new array();\"@7@2@\"var myarray = new Array[];\"@7@3@\"var myarray = new Array();\"@7@4@Ninguna de las anteriores\n\
+                       8@1@arr[arr.length] = value@8@2@arr[arr.length+1] = new Arrays()@8@3@arr[arr.length-1] = value@8@4@arr[arr.length*1] = value\n\
+                       9@1@Math.rnd()@9@2@Math.random(0,100)@9@3@Math.random@9@4@randomize()\n\
+                       10@1@round(7.25)@10@2@Math.rnd(7.25)@10@3@rnd(7.25)@10@4@Math.round(7.25)\n\
+                       11@1@\"alertBox = \"Hola mundo!\";\"@11@2@\"alert(\"Hola mundo!\");\"@11@3@\"alertBox(\"Hola mundo!);\"@11@4@\"msgBox(\"Hola mundo!);\"\n\
+                       12@1@\"for(i = 1; i \<= 5; i++)\"@12@2@\"for(i \<= 5; i++)\"@12@3@for i = 1 to 5@12@4@Ninguna de las anteriores\n\
+                       13@1@lower()@13@2@toLower()@13@3@toLowerCase()@13@4@lowerCase()\n\
+                       14@1@&lt;script name=\"xxx.js\" type=\"text\/javascript\" &gt;&lt;\/script&gt;\"@14@2@&lt;script href=\"xxx.js\" type=\"text\/javascript\" &gt;&lt;\/script&gt;@14@3@&lt;script src=\"xxx.js\" type=\"text\/javascript\" &gt;&lt\/script&gt;@14@4@Ninguna de las anteriores\n\
+                       15@1@Un árbol@15@2@Una lista@15@3@Una secuencia@15@4@Ninguna de las anteriores\n\
+                       16@1@if(i=5)@16@2@if i==5 then@16@3@if i==5@16@4@if(i==5)\n\
+                       17@1@Pueden ejecutarse cuando son llamadas desde algún otro script o a causa de un evento.@17@2@Se ejecutan una sóla vez: al terminar de cargarse la página.@17@3@Sólo cuando son llamadas desde algún script dentro de la página@17@4@Sólo cuando se produce un evento.\n\
+                       18@1@execute...until@18@2@do...while@18@3@switch ... case@18@4@while…\n\
+                       19@1@while (i&lt; miVector.length || miVector[i] ==v)@19@2@while ( miVector[i] !=v  && i &lt;miVector.length)@19@3@while (  i&lt;miVector.length && miVector[i] !=v )@19@4@while (  i&lt;miVector.length && miVector[i]==v )\n\
+                       20@1@strPrueba(x)@20@2@strPrueba.charAt[x]@20@3@strPrueba.chars(x)@20@4@strPrueba.charAt(x)";
+        </script>
+    </head>
+    <body>
+        <div class="ranking" id="rank">
+            <div class="cabezalTarjeta">Ranking</div>
+            <table id="tablaRanking"></table>
+            <input type="button" id="reiniciarJuego" value="Aceptar">
+        </div>
+
+        <div class="login" id="log">
+            <div class="cabezalTarjeta">login | registro</div>
+            <h2>Nombre jugador 1:</h2>
+            <div class="respuestas clearfix">
+                <input type="text" id="nombreJugador1"/>
+            </div>
+            <h2>Nombre jugador 2:</h2>
+            <div class="respuestas clearfix">
+                <input type="text" id="nombreJugador2"/>
+            </div>
+            <input type="button" id="comenzarJuego" value="Comenzar juego">
+        </div>
+
+        <div class="tarjeta" id="tarj">
+            <div class="cabezalTarjeta" id="tittarj">Tipo de Tarjeta</div>
+            <h2 id="txtpregunta">Pregunta</h2>
+            <div class="respuestas clearfix">
+                <div>
+                    <input type="radio" id="respuesta1" name="respuesta" class="respuesta" value="1"><label for="respuesta1" id="textoRespuesta1">Respuesta 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="respuesta2" name="respuesta" class="respuesta" value="2"><label for="respuesta2" id="textoRespuesta2">Respuesta 2</label>
+                </div>
+                <div>
+                    <input type="radio" id="respuesta3" name="respuesta" class="respuesta" value="3"><label for="respuesta3" id="textoRespuesta3">Respuesta 3</label>
+                </div>
+                <div>
+                    <input type="radio" id="respuesta4" name="respuesta" class="respuesta" value="4"><label for="respuesta4" id="textoRespuesta4">Respuesta 4</label>
+                </div>
+            </div>
+            <input type="button" id="botonRespuesta" value="Verificar Respuesta">
+        </div>
+        <div class="overlay" id ="over">
+            &nbsp;
+        </div>
+        <div class="contenedorInfo">
+            <div class="contenedorInfoInt">
+                <div class="jugador">
+                    <div><img src="img/peon_azul.png"></div>
+                    <div class="nombre" id="jugadorAzul">Jugador Uno</div>
+                </div>
+                <div class="jugador">
+                    <div><img src="img/peon_rojo.png"></div>
+                    <div class="nombre" id="jugadorRojo">Jugador Dos</div>
+                </div>
+                <div id="mensajes" >
+
+                </div>
+            </div>
+        </div>
+        <div class="contenedorTablero">
+            <img id="dado" src="img/6.png" alt="dado" /> 
+            <img class="peon" id="peonRojo" src="img/peon_rojo.png" alt="peon rojo" />
+            <img class="peon" id="peonAzul" src="img/peon_azul.png" alt="peon azul" />
+            <img src="img/tablero.png" alt="tablero" />
+        </div>
+    </body>
+</html>
